@@ -184,6 +184,7 @@ public class RedisSinkFunction<IN> extends RichSinkFunction<IN> {
         RedisFuture redisFuture = null;
         switch (redisCommand.getInsertCommand()) {
             case RPUSH:
+
                 redisFuture = this.redisCommandsContainer.rpush(params[0], params[1]);
                 break;
             case LPUSH:

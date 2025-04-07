@@ -135,6 +135,7 @@ public class RedisClusterContainer implements RedisCommandsContainer, Closeable 
         }
     }
 
+
     @Override
     public RedisFuture<Long> rpush(final String listName, final String value) {
         try {
