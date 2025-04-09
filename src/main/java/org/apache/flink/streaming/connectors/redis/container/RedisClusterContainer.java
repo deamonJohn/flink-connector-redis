@@ -18,6 +18,9 @@
 
 package org.apache.flink.streaming.connectors.redis.container;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.lettuce.core.Range;
 import io.lettuce.core.RedisFuture;
 import io.lettuce.core.cluster.RedisClusterClient;
@@ -25,16 +28,15 @@ import io.lettuce.core.cluster.api.StatefulRedisClusterConnection;
 import io.lettuce.core.cluster.api.async.RedisAdvancedClusterAsyncCommands;
 import io.lettuce.core.cluster.api.async.RedisClusterAsyncCommands;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Closeable;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/** Redis command container if we want to connect to a Redis cluster. */
+/**
+ * Redis command container if we want to connect to a Redis cluster.
+ */
 public class RedisClusterContainer implements RedisCommandsContainer, Closeable {
 
     private static final long serialVersionUID = 1L;
@@ -63,7 +65,9 @@ public class RedisClusterContainer implements RedisCommandsContainer, Closeable 
         LOG.info("open async connection!!!!");
     }
 
-    /** Closes the {@link RedisClusterClient}. */
+    /**
+     * Closes the {@link RedisClusterClient}.
+     */
     @Override
     public void close() {
         this.connection.close();
@@ -135,7 +139,6 @@ public class RedisClusterContainer implements RedisCommandsContainer, Closeable 
         }
     }
 
-
     @Override
     public RedisFuture<Long> rpush(final String listName, final String value) {
         try {
@@ -145,6 +148,36 @@ public class RedisClusterContainer implements RedisCommandsContainer, Closeable 
                 LOG.error(
                         "Cannot send Redis message with command RPUSH to list {} error message: {}",
                         listName,
+                        e.getMessage());
+            }
+            throw e;
+        }
+    }
+
+    @Override
+    public RedisFuture<Long> llen(final String keyName) {
+        try {
+            return clusterAsyncCommands.llen(keyName);
+        } catch (Exception e) {
+            if (LOG.isErrorEnabled()) {
+                LOG.error(
+                        "Cannot send Redis message with command llen to list {} error message: {}",
+                        keyName,
+                        e.getMessage());
+            }
+            throw e;
+        }
+    }
+
+    @Override
+    public RedisFuture<Long> lpop(final String keyName) {
+        try {
+            return clusterAsyncCommands.lpop(keyName);
+        } catch (Exception e) {
+            if (LOG.isErrorEnabled()) {
+                LOG.error(
+                        "Cannot send Redis message with command llen to list {} error message: {}",
+                        keyName,
                         e.getMessage());
             }
             throw e;

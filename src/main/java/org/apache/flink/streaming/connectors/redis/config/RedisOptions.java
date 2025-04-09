@@ -211,5 +211,12 @@ public class RedisOptions {
                     .defaultValue(false)
                     .withDescription("Optional turn on the audit log switch.");
 
-    private RedisOptions() {}
+    public static final ConfigOption<Integer> LIST_LIMIT =
+            ConfigOptions.key("list.limit")
+                    .intType()
+                    .defaultValue(null)
+                    .withDescription("Optional set count for rpush size query");
+
+    private RedisOptions() {
+    }
 }

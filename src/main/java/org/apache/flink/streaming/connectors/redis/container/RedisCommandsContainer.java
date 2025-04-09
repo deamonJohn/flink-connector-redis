@@ -84,6 +84,20 @@ public interface RedisCommandsContainer extends Serializable {
     RedisFuture<Long> rpush(String listName, String value);
 
     /**
+     *
+     * @param keyName
+     * @return
+     */
+    RedisFuture<Long> llen(String keyName);
+
+    /**
+     *
+     * @param keyName
+     * @return
+     */
+    RedisFuture<Long> lpop(String keyName);
+
+    /**
      * Insert the specified value at the head of the list stored at key. If key does not exist, it
      * is created as empty list before performing the push operation.
      *
