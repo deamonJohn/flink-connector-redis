@@ -91,7 +91,7 @@ public interface RedisCommandsContainer extends Serializable {
     RedisFuture<Long> llen(String keyName);
 
     /**
-     *
+     * 出栈
      * @param keyName
      * @return
      */
