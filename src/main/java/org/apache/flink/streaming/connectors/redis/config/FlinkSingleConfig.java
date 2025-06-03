@@ -28,7 +28,6 @@ public class FlinkSingleConfig extends FlinkConfigBase {
     private final String host;
     private final int port;
     private final int database;
-
     /**
      * pool configuration. The host is mandatory, and when host is not set, it throws
      * NullPointerException.
@@ -44,9 +43,9 @@ public class FlinkSingleConfig extends FlinkConfigBase {
             int port,
             int connectionTimeout,
             String password,
-            int database,
+            int database, boolean tls,
             LettuceConfig lettuceConfig) {
-        super(connectionTimeout, password, lettuceConfig);
+        super(connectionTimeout, password, tls, lettuceConfig);
         Objects.requireNonNull(host, "Host information should be presented");
         this.host = host;
         this.port = port;
@@ -88,6 +87,7 @@ public class FlinkSingleConfig extends FlinkConfigBase {
         private int timeout;
         private int database;
         private String password;
+        private boolean tls;
 
         private LettuceConfig lettuceConfig;
 
@@ -146,6 +146,16 @@ public class FlinkSingleConfig extends FlinkConfigBase {
             return this;
         }
 
+        /**
+         *
+         * @param tls
+         * @return
+         */
+        public Builder setTls(boolean tls) {
+            this.tls = tls;
+            return this;
+        }
+
         public Builder setLettuceConfig(LettuceConfig lettuceConfig) {
             this.lettuceConfig = lettuceConfig;
             return this;
@@ -157,7 +167,7 @@ public class FlinkSingleConfig extends FlinkConfigBase {
          * @return PoolConfig
          */
         public FlinkSingleConfig build() {
-            return new FlinkSingleConfig(host, port, timeout, password, database, lettuceConfig);
+            return new FlinkSingleConfig(host, port, timeout, password, database, tls, lettuceConfig);
         }
     }
 }

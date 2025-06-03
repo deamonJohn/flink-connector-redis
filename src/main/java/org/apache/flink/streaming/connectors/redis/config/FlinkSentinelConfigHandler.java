@@ -54,6 +54,7 @@ public class FlinkSentinelConfigHandler implements FlinkConfigHandler {
                         .setConnectionTimeout(config.get(RedisOptions.TIMEOUT))
                         .setDatabase(config.get(RedisOptions.DATABASE))
                         .setPassword(config.get(RedisOptions.PASSWORD))
+                        .setTls(config.get(RedisOptions.TLS))
                         .setSentinelsPassword(sentinelsPassword)
                         .setLettuceConfig(lettuceConfig)
                         .build();

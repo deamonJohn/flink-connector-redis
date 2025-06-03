@@ -119,6 +119,7 @@ public class RedisClientBuilder {
                                     RedisURI.Builder builder =
                                             RedisURI.builder()
                                                     .withHost(redis[0])
+                                                    .withStartTls(clusterConfig.tls)
                                                     .withPort(Integer.parseInt(redis[1]));
                                     if (!StringUtils.isNullOrWhitespaceOnly(
                                             clusterConfig.getPassword())) {

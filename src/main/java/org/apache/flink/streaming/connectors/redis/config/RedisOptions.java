@@ -217,6 +217,12 @@ public class RedisOptions {
                     .defaultValue(null)
                     .withDescription("Optional set count for rpush size query");
 
+    public static final ConfigOption<Boolean> TLS =
+            ConfigOptions.key("TLS")
+                    .booleanType()
+                    .defaultValue(false)
+                    .withDescription("Optional tls conf");
+
     private RedisOptions() {
     }
 }

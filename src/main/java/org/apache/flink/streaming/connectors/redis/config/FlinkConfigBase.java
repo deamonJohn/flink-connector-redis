@@ -30,15 +30,17 @@ public abstract class FlinkConfigBase implements Serializable {
     protected final int connectionTimeout;
 
     protected final String password;
+    public boolean tls;
 
     protected final LettuceConfig lettuceConfig;
 
-    protected FlinkConfigBase(int connectionTimeout, String password, LettuceConfig lettuceConfig) {
+    protected FlinkConfigBase(int connectionTimeout, String password, boolean tls, LettuceConfig lettuceConfig) {
         Preconditions.checkArgument(
                 connectionTimeout >= 0, "connection timeout can not be negative");
         this.password = password;
         this.connectionTimeout = connectionTimeout;
         this.lettuceConfig = lettuceConfig;
+        this.tls = tls;
     }
 
     public String getPassword() {
@@ -60,14 +62,11 @@ public abstract class FlinkConfigBase implements Serializable {
 
     @Override
     public String toString() {
-        return "FlinkConfigBase{"
-                + "connectionTimeout="
-                + connectionTimeout
-                + ", password='"
-                + password
-                + '\''
-                + ", lettuceConfig="
-                + lettuceConfig
-                + '}';
+        return "FlinkConfigBase{" +
+                "connectionTimeout=" + connectionTimeout +
+                ", password='" + password + '\'' +
+                ", tls=" + tls +
+                ", lettuceConfig=" + lettuceConfig +
+                '}';
     }
 }

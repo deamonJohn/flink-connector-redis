@@ -34,6 +34,7 @@ public class FlinkSentinelConfig extends FlinkConfigBase {
     private final int soTimeout;
     private final int database;
     private final String masterName;
+    private boolean tls;
 
     private final String sentinelsPassword;
 
@@ -56,9 +57,9 @@ public class FlinkSentinelConfig extends FlinkConfigBase {
             int soTimeout,
             int database,
             String password,
-            String sentinelsPassword,
+            String sentinelsPassword, boolean tls,
             LettuceConfig lettuceConfig) {
-        super(connectionTimeout, password, lettuceConfig);
+        super(connectionTimeout, password, tls, lettuceConfig);
         Objects.requireNonNull(masterName, "Master name should be presented");
         Objects.requireNonNull(sentinelsInfo, "Sentinels information should be presented");
         this.masterName = masterName;
@@ -66,6 +67,7 @@ public class FlinkSentinelConfig extends FlinkConfigBase {
         this.soTimeout = soTimeout;
         this.database = database;
         this.sentinelsPassword = sentinelsPassword;
+        this.tls = tls;
     }
 
     /**
@@ -112,6 +114,7 @@ public class FlinkSentinelConfig extends FlinkConfigBase {
         private int soTimeout;
         private int database;
         private String password;
+        private boolean tls;
         private String sentinelsPassword;
 
         private LettuceConfig lettuceConfig;
@@ -180,6 +183,11 @@ public class FlinkSentinelConfig extends FlinkConfigBase {
             return this;
         }
 
+        public Builder setTls(boolean tls) {
+            this.tls = tls;
+            return this;
+        }
+
         /**
          * Builds SentinelConfig.
          *
@@ -193,7 +201,7 @@ public class FlinkSentinelConfig extends FlinkConfigBase {
                     soTimeout,
                     database,
                     password,
-                    sentinelsPassword,
+                    sentinelsPassword, tls,
                     lettuceConfig);
         }
     }
