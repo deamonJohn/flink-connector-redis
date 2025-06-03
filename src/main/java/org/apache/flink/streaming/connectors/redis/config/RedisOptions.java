@@ -223,6 +223,7 @@ public class RedisOptions {
                     .defaultValue(false)
                     .withDescription("Optional tls conf");
 
+
     private RedisOptions() {
     }
 }
