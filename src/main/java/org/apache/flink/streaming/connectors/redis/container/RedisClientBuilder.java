@@ -110,7 +110,6 @@ public class RedisClientBuilder {
     private static RedisClusterClient build(
             FlinkClusterConfig clusterConfig, ClientResources clientResources) {
         Objects.requireNonNull(clusterConfig, "Redis cluster config should not be Null");
-
         List<RedisURI> redisURIS =
                 Arrays.stream(clusterConfig.getNodesInfo().split(","))
                         .map(
@@ -119,7 +118,7 @@ public class RedisClientBuilder {
                                     RedisURI.Builder builder =
                                             RedisURI.builder()
                                                     .withHost(redis[0])
-                                                    .withStartTls(clusterConfig.tls)
+                                                    .withSsl(clusterConfig.tls)
                                                     .withPort(Integer.parseInt(redis[1]));
                                     if (!StringUtils.isNullOrWhitespaceOnly(
                                             clusterConfig.getPassword())) {
